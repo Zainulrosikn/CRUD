@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.room_persistence"
+    namespace = "com.example.roompersistence"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.room_persistence"
-        minSdk = 31
+        applicationId = "com.example.roompersistence"
+        minSdk = 34
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -27,17 +27,26 @@ android {
             )
         }
     }
+
+    // Pastikan import dan pengaturan JavaVersion di sini
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11 // Gunakan JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11 // Gunakan JavaVersion.VERSION_11
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
-dependencies {
+kapt {
+    arguments {
+        arg("kapt.jvm.options", "--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED")
+    }
+}
 
+
+dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -48,8 +57,14 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx.kotlinx-coroutines-android:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("androidx.room:room-ktx:$room_version")
+
+    implementation("com.google.android.material:material:1.8.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
 }
