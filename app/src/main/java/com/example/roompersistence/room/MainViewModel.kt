@@ -18,7 +18,7 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
         fetchNotes()
     }
 
-    private fun fetchNotes(){
+     fun fetchNotes(){
         viewModelScope.launch{
             try {
                 val notes = noteDao.getAllNotes()
@@ -26,6 +26,18 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
             } catch (e: Exception){
                 _allNotes.postValue(emptyList())
             }
+        }
+    }
+
+    fun updateNote(note: Note) {
+        viewModelScope.launch (Dispatchers.IO){
+            noteDao.update(note)
+        }
+    }
+
+    fun deleteNoteByid(id: Int) {
+        viewModelScope.launch {Dispatchers.IO}
+            noteDao.delete(note)
         }
     }
 }
